@@ -30,7 +30,6 @@ public class DemoUserStorageProviderFactory implements UserStorageProviderFactor
     @Override
     public List<ProviderConfigProperty> getConfigProperties() {
         return ProviderConfigurationBuilder.create()
-                .property("priority", "Priority", "", ProviderConfigProperty.STRING_TYPE, "", null)
                 .property("myParam", "My Param", "Some Description", ProviderConfigProperty.STRING_TYPE, "some value", null)
                 .build();
     }

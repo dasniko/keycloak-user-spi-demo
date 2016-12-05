@@ -11,25 +11,22 @@ import org.keycloak.models.RealmModel;
 import org.keycloak.models.RoleModel;
 import org.keycloak.models.UserCredentialModel;
 import org.keycloak.models.UserModel;
-import org.keycloak.models.cache.CachedUserModel;
-import org.keycloak.models.cache.OnUserCache;
 import org.keycloak.storage.StorageId;
 import org.keycloak.storage.UserStorageProvider;
 import org.keycloak.storage.user.UserLookupProvider;
 import org.keycloak.storage.user.UserQueryProvider;
-import org.keycloak.storage.user.UserRegistrationProvider;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
  * @author Niko Köbler, http://www.n-k.de, @dasniko
  */
 public class DemoUserStorageProvider implements UserStorageProvider,
-        UserLookupProvider, UserRegistrationProvider, UserQueryProvider,
-        CredentialInputUpdater, CredentialInputValidator, OnUserCache {
+        UserLookupProvider, UserQueryProvider, CredentialInputUpdater, CredentialInputValidator {
 
     private final KeycloakSession session;
     private final ComponentModel model;
@@ -74,7 +71,8 @@ public class DemoUserStorageProvider implements UserStorageProvider,
     }
 
     @Override
-    public void onCache(RealmModel realm, CachedUserModel user, UserModel delegate) {
+    public Set<String> getDisableableCredentialTypes(RealmModel realm, UserModel user) {
+        return Collections.emptySet();
     }
 
     @Override
@@ -161,19 +159,5 @@ public class DemoUserStorageProvider implements UserStorageProvider,
     @Override
     public List<UserModel> searchForUserByUserAttribute(String attrName, String attrValue, RealmModel realm) {
         return null;
-    }
-
-    @Override
-    public UserModel addUser(RealmModel realm, String username) {
-        return null;
-    }
-
-    @Override
-    public boolean removeUser(RealmModel realm, UserModel user) {
-        return false;
-    }
-
-    @Override
-    public void grantToAllUsers(RealmModel realm, RoleModel role) {
     }
 }
