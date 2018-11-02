@@ -7,49 +7,50 @@ import java.util.stream.Collectors;
 /**
  * @author Niko Köbler, http://www.n-k.de, @dasniko
  */
-public class DemoRepository {
+class DemoRepository {
 
     private List<DemoUser> users;
 
-    public DemoRepository() {
+    DemoRepository() {
         users = Arrays.asList(
-                new DemoUser("1", "Katie", "Washington"),
-                new DemoUser("2", "Enrique", "Perkins"),
-                new DemoUser("3", "Joshua", "Little"),
-                new DemoUser("4", "Billie", "Newman"),
-                new DemoUser("5", "Leslie", "Thompson")
+                new DemoUser("1", "Fred", "Flintstone"),
+                new DemoUser("3", "Wilma", "Flintstone"),
+                new DemoUser("5", "Pebbles", "Flintstone"),
+                new DemoUser("2", "Barney", "Rubble"),
+                new DemoUser("4", "Betty", "Rubble"),
+                new DemoUser("6", "Bam Bam", "Rubble")
         );
     }
 
-    public List<DemoUser> getAllUsers() {
+    List<DemoUser> getAllUsers() {
         return users;
     }
 
-    public int getUsersCount() {
+    int getUsersCount() {
         return users.size();
     }
 
-    public DemoUser findUserById(String id) {
-        return users.stream().filter(user -> user.getId().equals(id)).findFirst().get();
+    DemoUser findUserById(String id) {
+        return users.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
     }
 
-    public DemoUser findUserByUsernameOrEmail(String username) {
+    DemoUser findUserByUsernameOrEmail(String username) {
         return users.stream()
                 .filter(user -> user.getUsername().equalsIgnoreCase(username) || user.getEmail().equalsIgnoreCase(username))
-                .findFirst().get();
+                .findFirst().orElse(null);
     }
 
-    public List<DemoUser> findUsers(String query) {
+    List<DemoUser> findUsers(String query) {
         return users.stream()
                 .filter(user -> user.getUsername().contains(query) || user.getEmail().contains(query))
                 .collect(Collectors.toList());
     }
 
-    public boolean validateCredentials(String username, String password) {
+    boolean validateCredentials(String username, String password) {
         return findUserByUsernameOrEmail(username).getPassword().equals(password);
     }
 
-    public boolean updateCredentials(String username, String password) {
+    boolean updateCredentials(String username, String password) {
         findUserByUsernameOrEmail(username).setPassword(password);
         return true;
     }

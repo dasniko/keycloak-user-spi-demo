@@ -20,7 +20,7 @@ public class DemoUser {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = (firstName + "." + lastName).toLowerCase();
-        this.email = this.username + "@example.com";
+        this.email = this.username + "@flintstones.com";
         this.password = firstName.toLowerCase();
     }
 
