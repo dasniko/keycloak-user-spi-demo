@@ -19,6 +19,8 @@ public class UserAdapter extends AbstractUserAdapterFederatedStorage {
         setFirstName(user.getFirstName());
         setLastName(user.getLastName());
         setEmail(user.getEmail());
+        setEnabled(user.isEnabled());
+        setCreatedTimestamp(user.getCreated());
     }
 
     @Override

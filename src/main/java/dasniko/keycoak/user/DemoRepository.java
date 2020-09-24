@@ -9,16 +9,17 @@ import java.util.stream.Collectors;
  */
 class DemoRepository {
 
-    private List<DemoUser> users;
+    private final List<DemoUser> users;
 
     DemoRepository() {
+        Long created = System.currentTimeMillis();
         users = Arrays.asList(
-                new DemoUser("1", "Fred", "Flintstone"),
-                new DemoUser("3", "Wilma", "Flintstone"),
-                new DemoUser("5", "Pebbles", "Flintstone"),
-                new DemoUser("2", "Barney", "Rubble"),
-                new DemoUser("4", "Betty", "Rubble"),
-                new DemoUser("6", "Bam Bam", "Rubble")
+                new DemoUser("1", "Fred", "Flintstone", true, created),
+                new DemoUser("2", "Wilma", "Flintstone", true, created),
+                new DemoUser("3", "Pebbles", "Flintstone", true, created),
+                new DemoUser("4", "Barney", "Rubble", true, created),
+                new DemoUser("5", "Betty", "Rubble", true, created),
+                new DemoUser("6", "Bam Bam", "Rubble", false, created)
         );
     }
 
