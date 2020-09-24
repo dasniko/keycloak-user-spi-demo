@@ -138,12 +138,12 @@ public class DemoUserStorageProvider implements UserStorageProvider,
 
     @Override
     public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm) {
-        return null;
+        return getUsers(realm);
     }
 
     @Override
     public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm, int firstResult, int maxResults) {
-        return null;
+        return getUsers(realm, firstResult, maxResults);
     }
 
     @Override
@@ -158,6 +158,6 @@ public class DemoUserStorageProvider implements UserStorageProvider,
 
     @Override
     public List<UserModel> searchForUserByUserAttribute(String attrName, String attrValue, RealmModel realm) {
-        return null;
+        return Collections.emptyList();
     }
 }
