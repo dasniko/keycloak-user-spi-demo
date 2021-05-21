@@ -7,7 +7,6 @@ import org.keycloak.credential.CredentialInputValidator;
 import org.keycloak.models.GroupModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
-import org.keycloak.models.RoleModel;
 import org.keycloak.models.UserCredentialModel;
 import org.keycloak.models.UserModel;
 import org.keycloak.models.credential.PasswordCredentialModel;
@@ -15,6 +14,7 @@ import org.keycloak.storage.StorageId;
 import org.keycloak.storage.UserStorageProvider;
 import org.keycloak.storage.user.UserLookupProvider;
 import org.keycloak.storage.user.UserQueryProvider;
+import org.keycloak.storage.user.UserRegistrationProvider;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +26,8 @@ import java.util.stream.Collectors;
  * @author Niko Köbler, http://www.n-k.de, @dasniko
  */
 public class DemoUserStorageProvider implements UserStorageProvider,
-        UserLookupProvider, UserQueryProvider, CredentialInputUpdater, CredentialInputValidator {
+        UserLookupProvider, UserQueryProvider, CredentialInputUpdater, CredentialInputValidator,
+        UserRegistrationProvider {
 
     private final KeycloakSession session;
     private final ComponentModel model;
@@ -73,18 +74,6 @@ public class DemoUserStorageProvider implements UserStorageProvider,
     @Override
     public Set<String> getDisableableCredentialTypes(RealmModel realm, UserModel user) {
         return Collections.emptySet();
-    }
-
-    @Override
-    public void preRemove(RealmModel realm) {
-    }
-
-    @Override
-    public void preRemove(RealmModel realm, GroupModel group) {
-    }
-
-    @Override
-    public void preRemove(RealmModel realm, RoleModel role) {
     }
 
     @Override
@@ -159,5 +148,15 @@ public class DemoUserStorageProvider implements UserStorageProvider,
     @Override
     public List<UserModel> searchForUserByUserAttribute(String attrName, String attrValue, RealmModel realm) {
         return Collections.emptyList();
+    }
+
+    @Override
+    public UserModel addUser(RealmModel realm, String username) {
+        return null;
+    }
+
+    @Override
+    public boolean removeUser(RealmModel realm, UserModel user) {
+        return false;
     }
 }
