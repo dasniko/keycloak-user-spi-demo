@@ -15,20 +15,13 @@ public class UserAdapter extends AbstractUserAdapterFederatedStorage {
 
     public UserAdapter(KeycloakSession session, RealmModel realm, ComponentModel model, DemoUser user) {
         super(session, realm, model);
+        this.storageId = new StorageId(storageProviderModel.getId(), user.getId());
         this.user = user;
         setFirstName(user.getFirstName());
         setLastName(user.getLastName());
         setEmail(user.getEmail());
         setEnabled(user.isEnabled());
         setCreatedTimestamp(user.getCreated());
-    }
-
-    @Override
-    public String getId() {
-        if (storageId == null) {
-            storageId = new StorageId(storageProviderModel.getId(), user.getId());
-        }
-        return storageId.getId();
     }
 
     @Override

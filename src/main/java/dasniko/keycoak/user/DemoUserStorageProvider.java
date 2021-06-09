@@ -88,7 +88,11 @@ public class DemoUserStorageProvider implements UserStorageProvider,
 
     @Override
     public UserModel getUserByUsername(String username, RealmModel realm) {
-        return new UserAdapter(session, realm, model, repository.findUserByUsernameOrEmail(username));
+        DemoUser user = repository.findUserByUsernameOrEmail(username);
+        if (user != null) {
+            return new UserAdapter(session, realm, model, user);
+        }
+        return null;
     }
 
     @Override
