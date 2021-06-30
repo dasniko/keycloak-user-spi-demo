@@ -1,5 +1,7 @@
 package dasniko.keycoak.user;
 
+import java.util.List;
+
 /**
  * @author Niko Köbler, http://www.n-k.de, @dasniko
  */
@@ -13,11 +15,12 @@ public class DemoUser {
     private String password;
     private boolean enabled;
     private Long created;
+    private List<String> roles;
 
     public DemoUser() {
     }
 
-    public DemoUser(String id, String firstName, String lastName, boolean enabled, Long created) {
+    public DemoUser(String id, String firstName, String lastName, boolean enabled, Long created, List<String> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,6 +29,7 @@ public class DemoUser {
         this.password = firstName.toLowerCase();
         this.enabled = enabled;
         this.created = created;
+        this.roles = roles;
     }
 
     public String getId() {
@@ -86,5 +90,13 @@ public class DemoUser {
 
     public void setCreated(Long created) {
         this.created = created;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }

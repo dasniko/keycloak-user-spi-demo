@@ -1,6 +1,7 @@
 package dasniko.keycoak.user;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,13 +14,14 @@ class DemoRepository {
 
     DemoRepository() {
         Long created = System.currentTimeMillis();
+        List<String> roles = Collections.singletonList("stoneage");
         users = Arrays.asList(
-                new DemoUser("1", "Fred", "Flintstone", true, created),
-                new DemoUser("2", "Wilma", "Flintstone", true, created),
-                new DemoUser("3", "Pebbles", "Flintstone", true, created),
-                new DemoUser("4", "Barney", "Rubble", true, created),
-                new DemoUser("5", "Betty", "Rubble", true, created),
-                new DemoUser("6", "Bam Bam", "Rubble", false, created)
+                new DemoUser("1", "Fred", "Flintstone", true, created, roles),
+                new DemoUser("2", "Wilma", "Flintstone", true, created, roles),
+                new DemoUser("3", "Pebbles", "Flintstone", true, created, roles),
+                new DemoUser("4", "Barney", "Rubble", true, created, roles),
+                new DemoUser("5", "Betty", "Rubble", true, created, Collections.emptyList()),
+                new DemoUser("6", "Bam Bam", "Rubble", false, created, Collections.emptyList())
         );
     }
 
