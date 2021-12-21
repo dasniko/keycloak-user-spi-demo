@@ -67,6 +67,11 @@ public class UserRoleModel implements RoleModel {
     }
 
     @Override
+    public Stream<RoleModel> getCompositesStream(String s, Integer integer, Integer integer1) {
+        return null;
+    }
+
+    @Override
     public boolean isClientRole() {
         return false;
     }
