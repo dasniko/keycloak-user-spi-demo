@@ -9,17 +9,23 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <keycloak.version>17.0.0</keycloak.version>
+        <maven-compiler.version>3.8.1</maven-compiler.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <lombok.version>1.18.22</lombok.version>
-        <keycloak.version>16.1.0</keycloak.version>
-        <maven.compiler.version>3.8.1</maven.compiler.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.keycloak</groupId>
-                <artifactId>keycloak-parent</artifactId>
+                <groupId>com.github.dasniko</groupId>
+                <artifactId>keycloak-spi-bom</artifactId>
                 <version>${keycloak.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
@@ -39,18 +45,16 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${project.groupId}.${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.version}</version>
+                <version>${maven-compiler.version}</version>
                 <configuration>
                     <release>11</release>
                 </configuration>
