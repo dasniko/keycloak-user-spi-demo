@@ -1,2 +1,2 @@
-#!/usr/bin/env bash
-mvn clean package && cp ./target/keycloak-demo-user-spi.jar ../deployments/
+#! /bin/bash
+mvn clean package -DskipTests && cp target/dasniko.*.jar ../keycloak-demos/providers

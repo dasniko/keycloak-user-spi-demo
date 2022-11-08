@@ -2,9 +2,11 @@ package dasniko.keycoak.user;
 
 import org.keycloak.common.util.MultivaluedHashMap;
 import org.keycloak.component.ComponentModel;
+import org.keycloak.credential.LegacyUserCredentialManager;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.RoleModel;
+import org.keycloak.models.SubjectCredentialManager;
 import org.keycloak.models.UserModel;
 import org.keycloak.storage.StorageId;
 import org.keycloak.storage.adapter.AbstractUserAdapter;
@@ -18,7 +20,7 @@ import java.util.stream.Stream;
 /**
  * @author Niko Köbler, http://www.n-k.de, @dasniko
  */
-public class UserAdapter extends AbstractUserAdapter.Streams {
+public class UserAdapter extends AbstractUserAdapter {
 
     private final DemoUser user;
 
@@ -46,6 +48,11 @@ public class UserAdapter extends AbstractUserAdapter.Streams {
     @Override
     public String getEmail() {
         return user.getEmail();
+    }
+
+    @Override
+    public SubjectCredentialManager credentialManager() {
+        return new LegacyUserCredentialManager(session, realm, this);
     }
 
     @Override
