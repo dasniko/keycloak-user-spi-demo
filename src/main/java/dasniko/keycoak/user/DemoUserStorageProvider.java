@@ -16,11 +16,8 @@ import org.keycloak.storage.user.UserLookupProvider;
 import org.keycloak.storage.user.UserQueryProvider;
 import org.keycloak.storage.user.UserRegistrationProvider;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Niko Köbler, http://www.n-k.de, @dasniko
@@ -72,8 +69,8 @@ public class DemoUserStorageProvider implements UserStorageProvider,
     }
 
     @Override
-    public Set<String> getDisableableCredentialTypes(RealmModel realm, UserModel user) {
-        return Collections.emptySet();
+    public Stream<String> getDisableableCredentialTypesStream(RealmModel realm, UserModel user) {
+        return Stream.empty();
     }
 
     @Override
@@ -81,13 +78,13 @@ public class DemoUserStorageProvider implements UserStorageProvider,
     }
 
     @Override
-    public UserModel getUserById(String id, RealmModel realm) {
+    public UserModel getUserById(RealmModel realm, String id) {
         String externalId = StorageId.externalId(id);
         return new UserAdapter(session, realm, model, repository.findUserById(externalId));
     }
 
     @Override
-    public UserModel getUserByUsername(String username, RealmModel realm) {
+    public UserModel getUserByUsername(RealmModel realm, String username) {
         DemoUser user = repository.findUserByUsernameOrEmail(username);
         if (user != null) {
             return new UserAdapter(session, realm, model, user);
@@ -96,8 +93,8 @@ public class DemoUserStorageProvider implements UserStorageProvider,
     }
 
     @Override
-    public UserModel getUserByEmail(String email, RealmModel realm) {
-        return getUserByUsername(email, realm);
+    public UserModel getUserByEmail(RealmModel realm, String email) {
+        return getUserByUsername(realm, email);
     }
 
     @Override
@@ -106,52 +103,30 @@ public class DemoUserStorageProvider implements UserStorageProvider,
     }
 
     @Override
-    public List<UserModel> getUsers(RealmModel realm) {
-        return repository.getAllUsers().stream()
-                .map(user -> new UserAdapter(session, realm, model, user))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<UserModel> getUsers(RealmModel realm, int firstResult, int maxResults) {
-        return getUsers(realm);
-    }
-
-    @Override
-    public List<UserModel> searchForUser(String search, RealmModel realm) {
+    public Stream<UserModel> searchForUserStream(RealmModel realm, String search) {
         return repository.findUsers(search).stream()
-                .map(user -> new UserAdapter(session, realm, model, user))
-                .collect(Collectors.toList());
+                .map(user -> new UserAdapter(session, realm, model, user));
     }
 
     @Override
-    public List<UserModel> searchForUser(String search, RealmModel realm, int firstResult, int maxResults) {
-        return searchForUser(search, realm);
+    public Stream<UserModel> searchForUserStream(RealmModel realm, String search, Integer firstResult, Integer maxResults) {
+        return searchForUserStream(realm, search);
     }
 
     @Override
-    public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm) {
-        return getUsers(realm);
+    public Stream<UserModel> searchForUserStream(RealmModel realm, Map<String, String> params, Integer firstResult, Integer maxResults) {
+        return repository.getAllUsers().stream()
+                .map(user -> new UserAdapter(session, realm, model, user));
     }
 
     @Override
-    public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm, int firstResult, int maxResults) {
-        return getUsers(realm, firstResult, maxResults);
+    public Stream<UserModel> getGroupMembersStream(RealmModel realm, GroupModel group, Integer firstResult, Integer maxResults) {
+        return Stream.empty();
     }
 
     @Override
-    public List<UserModel> getGroupMembers(RealmModel realm, GroupModel group, int firstResult, int maxResults) {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public List<UserModel> getGroupMembers(RealmModel realm, GroupModel group) {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public List<UserModel> searchForUserByUserAttribute(String attrName, String attrValue, RealmModel realm) {
-        return Collections.emptyList();
+    public Stream<UserModel> searchForUserByUserAttributeStream(RealmModel realm, String attrName, String attrValue) {
+        return Stream.empty();
     }
 
     @Override
