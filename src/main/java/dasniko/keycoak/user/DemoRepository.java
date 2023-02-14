@@ -45,7 +45,7 @@ class DemoRepository {
 
     List<DemoUser> findUsers(String query) {
         return users.stream()
-                .filter(user -> user.getUsername().contains(query) || user.getEmail().contains(query))
+                .filter(user -> query.equalsIgnoreCase("*") || user.getUsername().contains(query) || user.getEmail().contains(query))
                 .collect(Collectors.toList());
     }
 
